@@ -104,7 +104,8 @@ async function getDetials(s) {
 
 
 $("#search").click(function () {
-  $(".container").html(
+  closeSideBar()
+  $(".row").html(
     `
     <div class="d-flex gap-2">
     <div class="w-50">
@@ -114,7 +115,7 @@ $("#search").click(function () {
       <input type="text" class="form-control bg-black  text-white" placeholder="Search By first Letter" onkeyup="displaySearchByFirst(this.value)" >
     </div>
     </div>
-    <div class="row g-3 py-5"></div>
+    <div class="x row g-3 py-5"></div>
     `
   )
 })
@@ -138,7 +139,7 @@ async function displaySearchByName(s) {
 
 `
   }
-  $(".row").html(ma5zn)
+  $(".x").html(ma5zn)
 }
 async function displaySearchByFirst(s) {
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${s}`)
@@ -160,9 +161,10 @@ async function displaySearchByFirst(s) {
 
 `
   }
-  $(".row").html(ma5zn)
+  $(".x").html(ma5zn)
 }
 $("#categories").click(function () {
+  closeSideBar()
   displayCat()
 })
 
@@ -192,6 +194,7 @@ async function displayCat() {
 
 $("#area").click(function () {
   displayArea()
+  closeSideBar()
 })
 async function displayArea() {
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`)
@@ -218,6 +221,7 @@ async function displayArea() {
 
 $("#ingerdients").click(function () {
   displayIngerd()
+  closeSideBar()
 })
 async function displayIngerd() {
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`)
@@ -334,43 +338,44 @@ async function getMealsFromIng(x) {
 }
 
 
-$("#contact-us").click(function(){
-  document.querySelector(".row").innerHTML = 
+$("#contact-us").click(function () {
+  closeSideBar()
+  document.querySelector(".row").innerHTML =
     `<div class="contact min-vh-100 d-flex justify-content-center align-items-center">
     <div class="container w-75 text-center">
         <div class="row g-4">
             <div class="col-md-6">
-                <input id="nameInput" onkeyup="inputsValidation()" type="text" class="form-control" placeholder="Enter Your Name">
+                <input id="nameInput" onkeyup="nameValidation()" type="text" class="form-control" placeholder="Enter Your Name">
                 <div id="nameAlert" class="alert alert-danger w-100 mt-2 d-none">
                     Special characters and numbers not allowed
                 </div>
             </div>
             <div class="col-md-6">
-                <input id="emailInput" onkeyup="inputsValidation()" type="email" class="form-control " placeholder="Enter Your Email">
+                <input id="emailInput" onkeyup="emailValidation()" type="email" class="form-control " placeholder="Enter Your Email">
                 <div id="emailAlert" class="alert alert-danger w-100 mt-2 d-none">
                     Email not valid *exemple@yyy.zzz
                 </div>
             </div>
             <div class="col-md-6">
-                <input id="phoneInput" onkeyup="inputsValidation()" type="text" class="form-control " placeholder="Enter Your Phone">
+                <input id="phoneInput" onkeyup="phoneValidation()" type="text" class="form-control " placeholder="Enter Your Phone">
                 <div id="phoneAlert" class="alert alert-danger w-100 mt-2 d-none">
                     Enter valid Phone Number
                 </div>
             </div>
             <div class="col-md-6">
-                <input id="ageInput" onkeyup="inputsValidation()" type="number" class="form-control " placeholder="Enter Your Age">
+                <input id="ageInput" onkeyup="ageValidation()" type="number" class="form-control " placeholder="Enter Your Age">
                 <div id="ageAlert" class="alert alert-danger w-100 mt-2 d-none">
                     Enter valid age
                 </div>
             </div>
             <div class="col-md-6">
-                <input  id="passwordInput" onkeyup="inputsValidation()" type="password" class="form-control " placeholder="Enter Your Password">
+                <input  id="passwordInput" onkeyup="passwordValidation()" type="password" class="form-control " placeholder="Enter Your Password">
                 <div id="passwordAlert" class="alert alert-danger w-100 mt-2 d-none">
                     Enter valid password *Minimum eight characters, at least one letter and one number:*
                 </div>
             </div>
             <div class="col-md-6">
-                <input  id="repasswordInput" onkeyup="inputsValidation()" type="password" class="form-control " placeholder="Repassword">
+                <input  id="repasswordInput" onkeyup="rePasswordValidation()" type="password" class="form-control " placeholder="Repassword">
                 <div id="repasswordAlert" class="alert alert-danger w-100 mt-2 d-none">
                     Enter valid repassword 
                 </div>
@@ -380,3 +385,71 @@ $("#contact-us").click(function(){
     </div>
   </div> `
 })
+
+
+function closeSideBar() {
+  if ($("nav").css("left") == "0px") {
+    $("nav").animate({ left: `-${totalWidth}` }, 500)
+    $(".list-nav i").addClass("fa-align-justify")
+    $(".list-nav i").removeClass("fa-xmark")
+    $(".nav-content ul li").animate({ top: "300px" }, 500)
+  }
+}
+
+function nameValidation() {
+  let userName = /^[a-zA-Z ]+$/
+  let userNameInput = document.querySelector("#nameInput").value
+
+  if (userNameInput.match(userName)) {
+    document.querySelector("#nameAlert").classList.replace("d-flex", "d-none")
+  } else {
+    document.querySelector("#nameAlert").classList.replace("d-none", "d-flex")
+  } 
+
+}
+function emailValidation(){
+  let userEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  let userEmailInput = document.querySelector("#emailInput").value
+  if (userEmailInput.match(userEmail)) {
+    document.querySelector("#emailAlert").classList.replace("d-flex", "d-none")
+  } else {
+    document.querySelector("#emailAlert").classList.replace("d-none", "d-flex")
+  }
+}
+function phoneValidation(){
+  let userPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+  let userPhoneInput = document.querySelector("#phoneInput").value
+  if (userPhoneInput.match(userPhone)) {
+    document.querySelector("#phoneAlert").classList.replace("d-flex", "d-none")
+  } else {
+    document.querySelector("#phoneAlert").classList.replace("d-none", "d-flex")
+  }
+}
+function ageValidation(){
+  let userAge = /^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/
+  let userAgeInput = document.querySelector("#ageInput").value
+  if (userAgeInput.match(userAge)) {
+    document.querySelector("#ageAlert").classList.replace("d-flex", "d-none")
+  } else {
+    document.querySelector("#ageAlert").classList.replace("d-none", "d-flex")
+  }
+}
+function passwordValidation(){
+  let userPassword = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/
+  let userPasswordInput = document.querySelector("#passwordInput").value
+  if (userPasswordInput.match(userPassword)) {
+    document.querySelector("#passwordAlert").classList.replace("d-flex", "d-none")
+  } else {
+    document.querySelector("#passwordAlert").classList.replace("d-none", "d-flex")
+  }
+}
+function rePasswordValidation(){
+  let userPasswordInput = document.querySelector("#passwordInput").value
+  let reUserPassword = document.querySelector("#repasswordInput")
+
+  if(userPasswordInput == reUserPassword){
+    document.querySelector("#repasswordAlert").classList.replace("d-flex", "d-none")
+  }else{
+    document.querySelector("#repasswordAlert").classList.replace("d-none", "d-flex")
+  }
+}
