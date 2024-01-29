@@ -255,7 +255,7 @@ async function getMealsFromArea(x) {
   for (let i = 0; i < final.length; i++) {
     ma5zn += `
         <div class="col-md-3">
-          <div onclick="getMealsFromAreaaa('${final[i].strMeal}')" class="foods position-relative overflow-hidden">
+          <div onclick="getDetials('${final[i].strMeal}')" class="foods position-relative overflow-hidden">
             <div class="food-img">
               <img src="${final[i].strMealThumb}" alt="" class="img-fluid">
             </div>
@@ -292,28 +292,6 @@ async function getMealsFromCat(x) {
   $(".row").html(ma5zn)
 }
 
-async function getMealsFromAreaaa(x) {
-  let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian`)
-  let result = await res.json()
-  let final = result.meals
-  let ma5zn = ``
-  for (let i = 0; i < final.length; i++) {
-    ma5zn += `
-        <div class="col-md-3">
-          <div onclick="getDetials('${final[i].strMeal}')" class="foods position-relative overflow-hidden">
-            <div class="food-img">
-              <img src="${final[i].strMealThumb}" alt="" class="img-fluid">
-            </div>
-            <div class="overlay bg-white bg-opacity-75 position-absolute bottom-0 d-flex align-items-center">
-              <h2>${final[i].strMeal}</h2>
-            </div>
-          </div>
-        </div>
-
-`
-  }
-  $(".row").html(ma5zn)
-}
 async function getMealsFromIng(x) {
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${x}`)
   let result = await res.json()
