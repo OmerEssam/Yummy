@@ -381,7 +381,7 @@ $("#contact-us").click(function () {
                 </div>
             </div>
         </div>
-        <button id="submitBtn" disabled class="btn btn-outline-danger px-2 mt-3">Submit</button>
+        <button id="submitBtn" class="btn btn-outline-danger px-2 mt-3">Submit</button>
     </div>
   </div> `
 })
@@ -445,7 +445,7 @@ function passwordValidation(){
 }
 function rePasswordValidation(){
   let userPasswordInput = document.querySelector("#passwordInput").value
-  let reUserPassword = document.querySelector("#repasswordInput")
+  let reUserPassword = document.querySelector("#repasswordInput").value
 
   if(userPasswordInput == reUserPassword){
     document.querySelector("#repasswordAlert").classList.replace("d-flex", "d-none")
