@@ -14,14 +14,19 @@ $(".list-nav i").click(function () {
   }
 })
 
-$(document).ready(function () {
-  $(".load").fadeOut(1000)
-}
-)
 
 async function displayMeal() {
+  $(document).ready(function () {
+    $(".load").fadeIn(500)
+  }
+  )
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)
   let result = await res.json()
+
+  $(document).ready(function () {
+    $(".load").fadeOut(500)
+  }
+  )
   let final = result.meals
   let ma5zn = ``
   for (let i = 0; i < final.length; i++) {
@@ -44,8 +49,16 @@ async function displayMeal() {
 displayMeal()
 
 async function getDetials(s) {
+  $(document).ready(function () {
+    $(".load").fadeIn(500)
+  }
+  )
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${s}`)
   let result = await res.json()
+  $(document).ready(function () {
+    $(".load").fadeOut(500)
+  }
+  )
   let final = result.meals
   $(".row").html(`
     <div class="col-md-4">
@@ -142,8 +155,11 @@ async function displaySearchByName(s) {
   $(".x").html(ma5zn)
 }
 async function displaySearchByFirst(s) {
+  $(".load").fadeIn(500)
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${s}`)
   let result = await res.json()
+  $(".load").fadeOut(1000)
+
   let final = result.meals
   let ma5zn = ``
   for (let i = 0; i < final.length; i++) {
@@ -162,6 +178,7 @@ async function displaySearchByFirst(s) {
 `
   }
   $(".x").html(ma5zn)
+
 }
 $("#categories").click(function () {
   closeSideBar()
@@ -169,8 +186,16 @@ $("#categories").click(function () {
 })
 
 async function displayCat() {
+  $(document).ready(function () {
+    $(".load").fadeIn(500)
+  }
+  )
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
   let result = await res.json()
+  $(document).ready(function () {
+    $(".load").fadeOut(500)
+  }
+  )
   let final = result.categories
   let ma5zn = ``
   for (let i = 0; i < final.length; i++) {
@@ -182,7 +207,7 @@ async function displayCat() {
             </div>
             <div class="overlay bg-white bg-opacity-75 position-absolute bottom-0 text-center">
             <h2> ${final[i].strCategory}  </h2>
-            <p>${final[i].strCategoryDescription}</p>
+            <p>${final[i].strCategoryDescription.split(",").slice(0,1).join()}</p>
             </div>
           </div>
         </div>
@@ -197,8 +222,16 @@ $("#area").click(function () {
   closeSideBar()
 })
 async function displayArea() {
+  $(document).ready(function () {
+    $(".load").fadeIn(500)
+  }
+  )
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`)
   let result = await res.json()
+  $(document).ready(function () {
+    $(".load").fadeOut(500)
+  }
+  )
   let final = result.meals
   let ma5zn = ``
   for (let i = 0; i < final.length; i++) {
@@ -224,8 +257,16 @@ $("#ingerdients").click(function () {
   closeSideBar()
 })
 async function displayIngerd() {
+  $(document).ready(function () {
+    $(".load").fadeIn(500)
+  }
+  )
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`)
   let result = await res.json()
+  $(document).ready(function () {
+    $(".load").fadeOut(500)
+  }
+  )
   let final = result.meals
   let ma5zn = ``
   for (let i = 0; i < 20; i++) {
@@ -235,7 +276,7 @@ async function displayIngerd() {
             <div class="areas text-white text-center">
             <i class="fa-solid fa-drumstick-bite fa-4x"></i>
             <h2>${final[i].strIngredient}</h2>
-            <p>${final[i].strDescription}</p>
+            <p>${final[i].strDescription.split(",").slice(0,1).join()}</p>
             </div>
           </div>
         </div>
@@ -248,8 +289,16 @@ async function displayIngerd() {
 
 
 async function getMealsFromArea(x) {
+  $(document).ready(function () {
+    $(".load").fadeIn(500)
+  }
+  )
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${x}`)
   let result = await res.json()
+  $(document).ready(function () {
+    $(".load").fadeOut(500)
+  }
+  )
   let final = result.meals
   let ma5zn = ``
   for (let i = 0; i < final.length; i++) {
@@ -270,8 +319,16 @@ async function getMealsFromArea(x) {
   $(".row").html(ma5zn)
 }
 async function getMealsFromCat(x) {
+  $(document).ready(function () {
+    $(".load").fadeIn(1000)
+  }
+  )
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${x}`)
   let result = await res.json()
+  $(document).ready(function () {
+    $(".load").fadeOut(1000)
+  }
+  )
   let final = result.meals
   let ma5zn = ``
   for (let i = 0; i < 20; i++) {
@@ -293,8 +350,16 @@ async function getMealsFromCat(x) {
 }
 
 async function getMealsFromIng(x) {
+  $(document).ready(function () {
+    $(".load").fadeIn(500)
+  }
+  )
   let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${x}`)
   let result = await res.json()
+  $(document).ready(function () {
+    $(".load").fadeOut(500)
+  }
+  )
   let final = result.meals
   let ma5zn = ``
   for (let i = 0; i < final.length; i++) {
@@ -382,10 +447,10 @@ function nameValidation() {
     document.querySelector("#nameAlert").classList.replace("d-flex", "d-none")
   } else {
     document.querySelector("#nameAlert").classList.replace("d-none", "d-flex")
-  } 
+  }
 
 }
-function emailValidation(){
+function emailValidation() {
   let userEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   let userEmailInput = document.querySelector("#emailInput").value
   if (userEmailInput.match(userEmail)) {
@@ -394,7 +459,7 @@ function emailValidation(){
     document.querySelector("#emailAlert").classList.replace("d-none", "d-flex")
   }
 }
-function phoneValidation(){
+function phoneValidation() {
   let userPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
   let userPhoneInput = document.querySelector("#phoneInput").value
   if (userPhoneInput.match(userPhone)) {
@@ -403,7 +468,7 @@ function phoneValidation(){
     document.querySelector("#phoneAlert").classList.replace("d-none", "d-flex")
   }
 }
-function ageValidation(){
+function ageValidation() {
   let userAge = /^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/
   let userAgeInput = document.querySelector("#ageInput").value
   if (userAgeInput.match(userAge)) {
@@ -412,7 +477,7 @@ function ageValidation(){
     document.querySelector("#ageAlert").classList.replace("d-none", "d-flex")
   }
 }
-function passwordValidation(){
+function passwordValidation() {
   let userPassword = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/
   let userPasswordInput = document.querySelector("#passwordInput").value
   if (userPasswordInput.match(userPassword)) {
@@ -421,13 +486,13 @@ function passwordValidation(){
     document.querySelector("#passwordAlert").classList.replace("d-none", "d-flex")
   }
 }
-function rePasswordValidation(){
+function rePasswordValidation() {
   let userPasswordInput = document.querySelector("#passwordInput").value
   let reUserPassword = document.querySelector("#repasswordInput").value
 
-  if(userPasswordInput == reUserPassword){
+  if (userPasswordInput == reUserPassword) {
     document.querySelector("#repasswordAlert").classList.replace("d-flex", "d-none")
-  }else{
+  } else {
     document.querySelector("#repasswordAlert").classList.replace("d-none", "d-flex")
   }
 }
